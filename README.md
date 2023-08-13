@@ -4,4 +4,4 @@ This project was to create a Social Media API that uses node.js, mongodb, and mo
 ## Links
 Link to video presentation:
 
-Link to Github repo: 
+Link to Github repo: https://github.com/rpwysocki/All_Friends_Network
