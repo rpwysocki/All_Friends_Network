@@ -49,6 +49,56 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+
+  addReaction: async (req, res) => {
+    try {
+      const { reactionBody, username } = req.body;
+      const thoughtId = req.params.thoughtId;
+
+      const updatedThought = await Thought.findByIdAndUpdate(
+        thoughtId,
+        {
+          $push: {
+            reactions: { reactionBody, username, createdAt: new Date() },
+          },
+        },
+        { new: true }
+      );
+
+      if (!updatedThought) {
+        return res.status(404).json({ message: 'Thought not found' });
+      }
+
+      res.json(updatedThought);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
+
+  removeReaction: async (req, res) => {
+    try {
+      const thoughtId = req.params.thoughtId;
+      const reactionId = req.params.reactionId;
+
+      const updatedThought = await Thought.findByIdAndUpdate(
+        thoughtId,
+        {
+          $pull: {
+            reactions: { _id: reactionId },
+          },
+        },
+        { new: true }
+      );
+
+      if (!updatedThought) {
+        return res.status(404).json({ message: 'Thought not found' });
+      }
+
+      res.json(updatedThought);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
 };
 
 module.exports = thoughtController;

@@ -12,8 +12,8 @@ app.use(express.json());
 
 
 // Routes
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/thoughts', require('./routes/thoughtRoutes'));
+app.use('/api/users', require('./routes/api/userRoutes'));
+app.use('/api/thoughts', require('./routes/api/thoughtRoutes'));
 
 // Start server
 app.listen(PORT, () => {
